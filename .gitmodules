@@ -1,0 +1,6 @@
+[submodule "jni.hpp"]
+	path = app/src/main/cpp/thirdparty/jni.hpp
+	url = git@github.com:mapbox/jni.hpp.git
+[submodule "SOIL"]
+	path = app/src/main/cpp/thirdparty/SOIL
+	url = git@github.com:CAMOBAP795/Simple-OpenGL-Image-Library.git
