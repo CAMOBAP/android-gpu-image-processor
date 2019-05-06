@@ -34,13 +34,9 @@ private:
     EGLContext eglContext = EGL_NO_CONTEXT;
 
     GLuint glProgram = GL_NONE;
-    GLint gvPositionHandle = GL_NONE;
+    GLuint glPositionShaderInput = GL_NONE;
+    GLuint glQuadBuffer = GL_NONE;
 
-    GLuint quadBuffer = GL_NONE;
-//    GLfloat quadVertices[2*4] { -0.5f, -0.5f,
-//                                +0.5f, -0.5f,
-//                                -0.5f, +0.5f,
-//                                +0.5f, +0.5f };
     GLfloat quadVertices[2*4] { -1, -1,
                                 +1, -1,
                                 -1, +1,
