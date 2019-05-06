@@ -14,8 +14,13 @@ include(thirdparty/jni_hpp.cmake)
 
 add_subdirectory(thirdparty/SOIL)
 
-add_library(ndk-shader-mixer SHARED ImageMixer.cpp)
+add_library(ndk-shader-mixer SHARED ImageMixer.cpp oglshaderutils.cpp)
 
 set_target_properties(ndk-shader-mixer PROPERTIES CXX_STANDARD 14 CMAKE_CXX_STANDARD_REQUIRED ON)
 
-target_link_libraries(ndk-shader-mixer jni-hpp SOIL)
+target_include_directories(ndk-shader-mixer PRIVATE thirdparty/SOIL/src)
+
+#find_library(liblog log)
+#find_library(libglesv3 GLESv3)
+
+target_link_libraries(ndk-shader-mixer jni-hpp SOIL log EGL GLESv3)

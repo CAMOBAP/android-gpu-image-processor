@@ -1,6 +1,7 @@
 package com.camobap.imgmixer;
 
 import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
 
 import java.io.File;
 
@@ -10,23 +11,33 @@ public final class ImageMixer {
         System.loadLibrary("ndk-shader-mixer");
     }
 
-    public ImageMixer() {
-        initialize();
+    public ImageMixer(int width, int height) {
+        initialize(width, height);
     }
 
-    public File convert(File image0, File image1, File image2, File image3) {
-        return new File(convert0(image0.getAbsolutePath(),
-                image1.getAbsolutePath(),
-                image2.getAbsolutePath(),
-                image3.getAbsolutePath()));
+    public void load(@NonNull File imagePath) {
+        load0(imagePath.getAbsolutePath());
+    }
+
+    public void convert(@NonNull File outFile) {
+        convert0(outFile.getAbsolutePath());
     }
 
     @Keep
-    private native String convert0(String image0, String image1, String image2, String image3);
+    public native void clear();
 
     @Keep
-    protected native void initialize();
+    private native void convert0(@NonNull String outPath);
+
+    @Keep
+    private native void load0(@NonNull String imagePath);
+
+    @Keep
+    protected native void initialize(int width, int height);
 
     @Keep
     protected native void finalize() throws Throwable;
+
+    @Keep
+    private long nativeHandle;
 }
