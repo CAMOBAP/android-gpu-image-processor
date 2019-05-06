@@ -13,7 +13,7 @@ import androidx.core.content.FileProvider
 
 class MainActivity : AppCompatActivity() {
 
-    val imageMixer: ImageMixer = ImageMixer(1024, 1024)
+    private val imageMixer: ImageMixer = ImageMixer(1024, 1024)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,16 +26,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun doProcessing(view: View) {
+    override fun onDestroy() {
+        super.onDestroy()
+
+        imageMixer.clear()
+    }
+
+    fun doProcessing(@Suppress("UNUSED_PARAMETER") view: View) {
         val resultFile = File(filesDir, "result.bmp")
 
-        imageMixer.convert(resultFile);
+        imageMixer.convert(resultFile)
+
+        val authority = BuildConfig.APPLICATION_ID + ".provider"
+        val uri = FileProvider.getUriForFile(this, authority, resultFile.absoluteFile)
 
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
-        val uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", resultFile.absoluteFile)
         intent.setDataAndType(uri, "image/*")
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivity(intent)
     }
 }
