@@ -54,8 +54,8 @@ jobs:
       - run: |
           ./gradlew assembleRelease --stacktrace \
             -Pandroid.injected.signing.store.file=$PWD/app/release.keystore \
-            -Pandroid.injected.signing.store.password=${{ secrets.SIGNING_STORE_PASSWORD }}
-            -Pandroid.injected.signing.key.alias=${{ secrets.SIGNING_KEY_ALIAS }}
+            -Pandroid.injected.signing.store.password=${{ secrets.SIGNING_STORE_PASSWORD }} \
+            -Pandroid.injected.signing.key.alias=${{ secrets.SIGNING_KEY_ALIAS }} \
             -Pandroid.injected.signing.key.password=${{ secrets.SIGNING_KEY_PASSWORD }}
 
       - uses: actions/upload-artifact@v1
