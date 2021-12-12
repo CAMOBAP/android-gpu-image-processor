@@ -17,6 +17,15 @@ jobs:
         with:
           java-version: 1.8
 
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - run: ./gradlew lint --stacktrace
 
   apk:
@@ -30,6 +39,15 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 1.8
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - run: echo ${{ secrets.SIGNING_STORE_FILE }} | base64 -d > app/release.keystore
 
